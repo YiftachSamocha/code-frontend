@@ -6,9 +6,24 @@ import { useNavigate } from "react-router"
 
 export function CodeBlock({ type }) {
     const [content, setContent] = useState('')
-    const block = useSelector(state => state.blockModule.currBlock)
+    const currBlock = useSelector(state => state.blockModule.currBlock)
     const currUser = useSelector(state => state.blockModule.currUser)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        // if (currBlock && currBlock.isMentor === false && currBlock.type !== type) {
+        //     navigate('/lobby')
+        //     return
+        // }
+        socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, type)
+    }, [type])
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, onSetBlock)
+        return () => {
+            socketService.off(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, onSetBlock)
+        }
+    }, [])
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BLOCK_EDITED, editContent)
@@ -17,28 +32,16 @@ export function CodeBlock({ type }) {
         }
     }, [type])
 
-    useEffect(() => {
-        loadBlock(type)
-            .then(block => {
-                setContent(block.content)
-
-            })
-    }, [type])
-
-    useEffect(() => {
-        socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, type)
-    }, [type])
-
-    useEffect(() => {
-        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, mentorLeft)
-        return () => {
-            socketService.off(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, mentorLeft)
+    async function onSetBlock(type) {
+        if (type === null) {
+            mentorLeft()
+            return
         }
+        const block = await loadBlock(type)
+        setContent(block.content)
+    }
 
-    }, [])
-
-    async function mentorLeft(type) {
-        if (type !== null) return
+    async function mentorLeft() {
         await editContent('')
         navigate('/lobby')
 
@@ -46,7 +49,7 @@ export function CodeBlock({ type }) {
 
     async function editContent(editedContent) {
         setContent(editedContent)
-        const blockToUpdate = { ...block, content: editedContent }
+        const blockToUpdate = { ...currBlock, content: editedContent }
         await updateBlock(blockToUpdate)
     }
 
@@ -58,6 +61,6 @@ export function CodeBlock({ type }) {
     }
 
     return <section className="code-block">
-        <textarea value={content} onChange={handleChange}></textarea>
+        <textarea value={content} onChange={handleChange} className={currUser.isMentor ? 'mentor-text' : ''}></textarea>
     </section>
 }
