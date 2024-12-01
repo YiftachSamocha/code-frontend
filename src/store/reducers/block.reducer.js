@@ -7,7 +7,7 @@ export const ADD_BLOCK_MSG = 'ADD_BLOCK_MSG'
 
 const initialState = {
     blocks: [],
-    block: null
+    currBlock: null
 }
 
 export function blockReducer(state = initialState, action) {
@@ -18,7 +18,7 @@ export function blockReducer(state = initialState, action) {
             newState = { ...state, blocks: action.blocks }
             break
         case SET_BLOCK:
-            newState = { ...state, block: action.block }
+            newState = { ...state, currBlock: action.currBlock }
             break
         case REMOVE_BLOCK:
             const lastRemovedBlock = state.blocks.find(block => block._id === action.blockId)
@@ -33,7 +33,7 @@ export function blockReducer(state = initialState, action) {
             newState = { ...state, blocks }
             break
         case ADD_BLOCK_MSG:
-            newState = { ...state, block: { ...state.block, msgs: [...state.block.msgs || [], action.msg] } }
+            newState = { ...state, currBlock: { ...state.currBlock, msgs: [...state.currBlock.msgs || [], action.msg] } }
             break
         default:
     }

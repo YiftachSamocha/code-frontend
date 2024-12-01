@@ -1,6 +1,6 @@
-import { blockService } from '../../services/block'
 import { store } from '../store'
 import { ADD_BLOCK, REMOVE_BLOCK, SET_BLOCKS, SET_BLOCK, UPDATE_BLOCK, ADD_BLOCK_MSG } from '../reducers/block.reducer'
+import { blockService } from '../../services/block/block.service'
 
 export async function loadBlocks(filterBy) {
     try {
@@ -12,10 +12,11 @@ export async function loadBlocks(filterBy) {
     }
 }
 
-export async function loadBlock(blockId) {
+export async function loadBlock(type) {
     try {
-        const block = await blockService.getById(blockId)
+        const block = await blockService.getByType(type)
         store.dispatch(getCmdSetBlock(block))
+        return block
     } catch (err) {
         console.log('Cannot load block', err)
         throw err
@@ -73,10 +74,10 @@ function getCmdSetBlocks(blocks) {
         blocks
     }
 }
-function getCmdSetBlock(block) {
+function getCmdSetBlock(currBlock) {
     return {
         type: SET_BLOCK,
-        block
+        currBlock
     }
 }
 function getCmdRemoveBlock(blockId) {
