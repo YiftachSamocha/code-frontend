@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { loadBlock, updateBlock } from "../store/actions/block.actions"
 import { useSelector } from "react-redux"
-import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_EDITED, SOCKET_EVENT_MENTOR_LEFT_BLOCK, socketService } from "../services/socket.service"
+import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_EDITED, SOCKET_EVENT_BLOCK_TYPE_CHOSEN, socketService } from "../services/socket.service"
 import { useNavigate } from "react-router"
 
 export function CodeBlock({ type }) {
@@ -30,14 +30,15 @@ export function CodeBlock({ type }) {
     }, [type])
 
     useEffect(() => {
-        socketService.on(SOCKET_EVENT_MENTOR_LEFT_BLOCK, mentorLeft)
-        return ()=>{
-            socketService.off(SOCKET_EVENT_MENTOR_LEFT_BLOCK, mentorLeft)
+        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, mentorLeft)
+        return () => {
+            socketService.off(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, mentorLeft)
         }
 
     }, [])
 
-    async function mentorLeft() {
+    async function mentorLeft(type) {
+        if (type !== null) return
         await editContent('')
         navigate('/lobby')
 
