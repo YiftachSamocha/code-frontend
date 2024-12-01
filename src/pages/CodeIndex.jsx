@@ -14,7 +14,7 @@ export function CodeIndex() {
         setTitle(newTitle)
     }, [type])
 
-    return <section>
+    return <section className="code-index">
         <h1>{title}</h1>
         <CodeBlock type={type} />
 

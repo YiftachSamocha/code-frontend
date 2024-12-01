@@ -20,7 +20,7 @@ export function CodeBlock({ type }) {
         await updateBlock(blockToUpdate)
     }
 
-    return <section>
+    return <section className="code-block">
         <textarea value={content} onChange={editText}></textarea>
     </section>
 }
