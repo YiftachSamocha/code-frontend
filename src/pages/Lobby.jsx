@@ -1,7 +1,20 @@
+import { useEffect } from "react"
 import { useNavigate } from "react-router"
+import { SOCKET_EVENT_SET_CURR_USER, socketService } from "../services/socket.service"
+import { useDispatch } from "react-redux"
+import { SET_CURR_USER } from "../store/reducers/block.reducer"
+
 
 export function Lobby() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_SET_CURR_USER, user => {
+            dispatch({ type: SET_CURR_USER, currUser: user })
+        })
+    }, [])
+    
     function onSetBlock(url) {
         navigate(`/code/${url}`)
     }

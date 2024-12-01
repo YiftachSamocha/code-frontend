@@ -4,10 +4,13 @@ export const REMOVE_BLOCK = 'REMOVE_BLOCK'
 export const ADD_BLOCK = 'ADD_BLOCK'
 export const UPDATE_BLOCK = 'UPDATE_BLOCK'
 export const ADD_BLOCK_MSG = 'ADD_BLOCK_MSG'
+export const SET_CURR_USER = 'SET_CURR_USER'
 
 const initialState = {
     blocks: [],
-    currBlock: null
+    currBlock: null,
+    currUser: {}
+
 }
 
 export function blockReducer(state = initialState, action) {
@@ -34,6 +37,9 @@ export function blockReducer(state = initialState, action) {
             break
         case ADD_BLOCK_MSG:
             newState = { ...state, currBlock: { ...state.currBlock, msgs: [...state.currBlock.msgs || [], action.msg] } }
+            break
+        case SET_CURR_USER:
+            newState = { ...state, currUser: action.currUser }
             break
         default:
     }

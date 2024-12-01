@@ -5,10 +5,9 @@ export const SOCKET_EMIT_SET_BLOCK_TYPE = 'set-block-type'
 export const SOCKET_EMIT_EDIT_BLOCK = 'edit-block'
 
 export const SOCKET_EVENT_BLOCK_EDITED = 'block-edited'
+export const SOCKET_EVENT_SET_CURR_USER= 'set-curr-user'
 
 
-const SOCKET_EMIT_LOGIN = 'set-user-socket'
-const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'

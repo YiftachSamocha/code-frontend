@@ -6,6 +6,7 @@ import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_
 export function CodeBlock({ type }) {
     const [content, setContent] = useState('')
     const block = useSelector(state => state.blockModule.currBlock)
+    const currUser = useSelector(state => state.blockModule.currUser)
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BLOCK_EDITED, editContent)
@@ -26,6 +27,8 @@ export function CodeBlock({ type }) {
         socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, type)
     }, [type])
 
+
+
     async function editContent(editedContent) {
         setContent(editedContent)
         const blockToUpdate = { ...block, content: editedContent }
@@ -33,6 +36,7 @@ export function CodeBlock({ type }) {
     }
 
     function handleChange({ target }) {
+        if (currUser.isMentor) return
         const { value } = target
         editContent(value)
         socketService.emit(SOCKET_EMIT_EDIT_BLOCK, value)
@@ -40,5 +44,6 @@ export function CodeBlock({ type }) {
 
     return <section className="code-block">
         <textarea value={content} onChange={handleChange}></textarea>
+        <h5>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h5>
     </section>
 }
