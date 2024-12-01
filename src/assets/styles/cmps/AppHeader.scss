@@ -1,0 +1,25 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004d40;
+    color: white;
+    padding: 1em 4em;
+
+    >* {
+        cursor: default;
+
+    }
+
+    p,
+    h3 {
+        margin: 0;
+    }
+
+
+    a {
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+    }
+}
