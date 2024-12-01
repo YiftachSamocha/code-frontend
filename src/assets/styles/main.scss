@@ -13,6 +13,10 @@
 
 
 // pages
+@import "RootCmp.scss";
+@import "pages/CodeIndex.scss";
+@import "pages/Lobby.scss";
 
-
-// Components
+// cmps
+@import "cmps/AppHeader.scss";
+@import "cmps/CodeBlock.scss";

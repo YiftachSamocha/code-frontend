@@ -5,9 +5,9 @@ export function Lobby() {
     function onSetBlock(url) {
         navigate(`/code/${url}`)
     }
-    return <section>
-
-        <div>
+    return <section className="lobby">
+        <h1>Choose code block</h1>
+        <div className="lobby-container">
             <div onClick={() => onSetBlock('async')} >Async case</div>
             <div onClick={() => onSetBlock('dom')}>DOM manipulation</div>
             <div onClick={() => onSetBlock('array')}>Array methods</div>
