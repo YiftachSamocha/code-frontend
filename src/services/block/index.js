@@ -1,7 +1,5 @@
 const { DEV, VITE_LOCAL } = import.meta.env
 
-import { getRandomIntInclusive, makeId } from '../util.service'
-
 import { blockService as local } from './block.service.local'
 import { blockService as remote } from './block.service.remote'
 
@@ -15,6 +13,11 @@ function getTitle(type) {
             return 'Array methods'
         case 'event':
             return 'Event loop'
+        case 'error':
+            return 'Error handeling'
+        case 'data':
+            return 'Data structures'
+
         default: ''
     }
 }
