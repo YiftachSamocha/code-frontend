@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
 import { loadBlock, updateBlock } from "../store/actions/block.actions"
 import { useSelector } from "react-redux"
-import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_EDITED, socketService } from "../services/socket.service"
+import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_EDITED, SOCKET_EVENT_MENTOR_LEFT_BLOCK, socketService } from "../services/socket.service"
+import { useNavigate } from "react-router"
 
 export function CodeBlock({ type }) {
     const [content, setContent] = useState('')
     const block = useSelector(state => state.blockModule.currBlock)
     const currUser = useSelector(state => state.blockModule.currUser)
+    const navigate = useNavigate()
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BLOCK_EDITED, editContent)
@@ -27,7 +29,19 @@ export function CodeBlock({ type }) {
         socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, type)
     }, [type])
 
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_MENTOR_LEFT_BLOCK, mentorLeft)
+        return ()=>{
+            socketService.off(SOCKET_EVENT_MENTOR_LEFT_BLOCK, mentorLeft)
+        }
 
+    }, [])
+
+    async function mentorLeft() {
+        await editContent('')
+        navigate('/lobby')
+
+    }
 
     async function editContent(editedContent) {
         setContent(editedContent)
@@ -44,6 +58,5 @@ export function CodeBlock({ type }) {
 
     return <section className="code-block">
         <textarea value={content} onChange={handleChange}></textarea>
-        <h5>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h5>
     </section>
 }
