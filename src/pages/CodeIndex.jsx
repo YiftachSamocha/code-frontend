@@ -1,5 +1,20 @@
-export function CodeIndex(){
+import { useParams } from "react-router";
+import { CodeBlock } from "../cmps/CodeBlock";
+import { useEffect, useState } from "react";
+import { blockService } from "../services/block";
+
+export function CodeIndex() {
+    const type = useParams().type
+    const [title, setTitle] = useState('')
+
+    useEffect(() => {
+        const newTitle = blockService.getTitle(type)
+        setTitle(newTitle)
+    }, [type])
+
     return <section>
-        
+        <h1>{title}</h1>
+        <CodeBlock />
+
     </section>
 }

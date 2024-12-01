@@ -12,11 +12,7 @@ export function RootCmp() {
                 <Routes>
                     <Route path="/" element={<Lobby />} />
                     <Route path="/lobby" element={<Lobby />} />
-                    <Route path="/async" element={<CodeIndex />} />
-                    <Route path="/dom" element={<CodeIndex />} />
-                    <Route path="/array" element={<CodeIndex />} />
-                    <Route path="/event" element={<CodeIndex />} />
-
+                    <Route path="/code/:type" element={<CodeIndex />} />
                 </Routes>
             </main>
 
