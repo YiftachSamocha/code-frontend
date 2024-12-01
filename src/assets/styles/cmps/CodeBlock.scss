@@ -1,12 +1,22 @@
 .code-block {
-    textarea {
-        width: 800px;
-        height: 400px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    button {
+        margin: 0.5em;
         padding: 0.5em;
-        font-size: 1.5em;
+        font-size: 1em;
+        border-radius: 5px;
     }
-    .mentor-text{
-        caret-color: transparent;
-        cursor: default;
+
+    .dark {
+        background-color: #2F3129;
+        color:#F6F6F6 ;
+    }
+
+    .light {
+        background-color: #F6F6F6;
+        color: #2F3129;
     }
 }

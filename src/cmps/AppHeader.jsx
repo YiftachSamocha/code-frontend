@@ -14,14 +14,15 @@ export function AppHeader() {
     }
 
     function getConectionStr() {
+        if (!currUser) return ''
         if (currUser.isMentor) {
             if (amount === 1) return 'No students connected'
             else if (amount === 2) return '1 student is connected'
-            else if (amount > 2) return `${amount-1} studens are connected`
+            else if (amount > 2) return `${amount - 1} studens are connected`
         } else {
             if (amount === 2) return 'The mentor is connected'
             else if (amount === 3) return 'The mentor and 1 user are connected'
-            else if (amount > 3) return `The mentor and ${amount-1} users are connected`
+            else if (amount > 3) return `The mentor and ${amount - 1} users are connected`
         }
     }
 
