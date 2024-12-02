@@ -31,6 +31,7 @@ export function AppHeader() {
 
     return <section className="app-header">
         <h3 onClick={toLobby}>CodeSync</h3>
+        <h4>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h4>
         <p>{getConectionStr()}</p>
     </section>
 }

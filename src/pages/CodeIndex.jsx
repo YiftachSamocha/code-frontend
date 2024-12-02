@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_TYPE_CHOSEN, socketService } from "../services/socket.service";
 import { loadBlock } from "../store/actions/block.actions";
+import { AskQuestion } from "../cmps/msgs-cmps/AskQuestion";
 
 export function CodeIndex() {
     const type = useParams().type
@@ -34,13 +35,16 @@ export function CodeIndex() {
 
 
     return <section className="code-index">
-        <div>
-            <h3>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h3>
-            <div className="challenge">
-                <h4>{currBlock && currBlock.title}</h4>
-                <p>{currBlock && currBlock.challenge}</p>
+        <div className="code-cont">
+            <div>
+                <div className="challenge">
+                    <h4>{currBlock && currBlock.title}</h4>
+                    <h5>{currBlock && `Challenge: ${currBlock.subtitle}`}</h5>
+                    <p>{currBlock && currBlock.challenge}</p>
+                </div>
+                {!currUser.isMentor && <AskQuestion />}
             </div>
+            <CodeBlock currBlock={currBlock} />
         </div>
-        <CodeBlock currBlock={currBlock} />
     </section>
 }

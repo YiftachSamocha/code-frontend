@@ -1,0 +1,37 @@
+.question-msg {
+    position: fixed;
+    top: 1.5em;
+    left: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    z-index: 1000;
+
+    .msg-item {
+        @include msg-style(#ffffff, #004d40);
+
+        .btn-cont {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            button:first-of-type {
+                background-color: #27ae60;
+                color: white;
+
+                &:hover {
+                    background-color: #219150;
+                }
+            }
+
+            button:last-of-type {
+                background-color: #e74c3c;
+                color: white;
+
+                &:hover {
+                    background-color: #c0392b;
+                }
+            }
+        }
+    }
+}

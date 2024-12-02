@@ -10,7 +10,6 @@
         color: black;
     }
 
-
     .lobby-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -25,12 +24,12 @@
             cursor: pointer;
             color: white;
             text-align: center;
-            transition: transform 0.3s ease box-shadow 0.3s ease;
-        }
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-        div:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
         }
 
         .mentor-option {

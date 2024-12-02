@@ -64,8 +64,8 @@ export function CodeBlock({ currBlock }) {
     }
 
     return <section className="code-block">
-        <div className="solved-cont">
-            {isSolved ? <div>
+        <div >
+            {isSolved ? <div className="solved-cont">
                 <h3>{currUser.isMentor ? 'Challenge solved!' : 'Congratulations! You solved the challenge'}</h3>
                 <Lottie animationData={animationData} loop={true} autoPlay={true} style={{ width: '200px', height: '200px' }} />
                 {currUser.isMentor && <button onClick={startOver}>Start over</button>}
@@ -78,8 +78,8 @@ export function CodeBlock({ currBlock }) {
                         onChange={handleChange}
                         fontSize={14}
                         lineHeight={19}
-                        width="600px"
-                        height="400px"
+                        width="700px"
+                        height="450px"
                         showPrintMargin={true}
                         showGutter={true}
                         highlightActiveLine={true}

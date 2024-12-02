@@ -10,6 +10,7 @@
 @import "basics/base";
 @import "basics/links";
 @import "basics/forms";
+@import "basics/mixin";
 
 
 // pages
@@ -20,3 +21,8 @@
 // cmps
 @import "cmps/AppHeader.scss";
 @import "cmps/CodeBlock.scss";
+
+@import "cmps/AnswerMsg.scss";
+@import "cmps/AskQuestion.scss";
+@import "cmps/GiveAnswer.scss";
+@import "cmps/QuestionMsg.scss";
