@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { loadBlock, updateBlock } from "../store/actions/block.actions"
+import { updateBlock } from "../store/actions/block.actions"
 import { useSelector } from "react-redux"
-import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_EDITED, SOCKET_EVENT_BLOCK_TYPE_CHOSEN, socketService } from "../services/socket.service"
+import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EVENT_BLOCK_EDITED, socketService } from "../services/socket.service"
 import { useNavigate } from "react-router"
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-java";
@@ -12,58 +12,30 @@ import Lottie from "lottie-react"
 import animationData from '../assets/img/smiley-animation.json'
 
 
-export function CodeBlock({ type }) {
+export function CodeBlock({ currBlock }) {
     const [content, setContent] = useState('')
-    const currBlock = useSelector(state => state.blockModule.currBlock)
     const currUser = useSelector(state => state.blockModule.currUser)
-    const navigate = useNavigate()
     const [isDarkMode, setIsDarkMode] = useState(true)
     const [isSolved, setIsSolved] = useState(false)
-
-    useEffect(() => {
-        // if (currBlock && currBlock.isMentor === false && currBlock.type !== type) {
-        //     navigate('/lobby')
-        //     return
-        // }
-        socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, type)
-    }, [type])
-
-    useEffect(() => {
-        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, onSetBlock)
-        return () => {
-            socketService.off(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, onSetBlock)
-        }
-    }, [])
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BLOCK_EDITED, editContent)
         return () => {
             socketService.off(SOCKET_EVENT_BLOCK_EDITED, editContent)
         }
-    }, [type])
+    }, [currBlock])
 
     useEffect(() => {
         if (currBlock && content === currBlock.solution && !isSolved) {
             setIsSolved(true)
-        } else if(currBlock && content !== currBlock.solution && isSolved){
+        } else if (currBlock && content !== currBlock.solution && isSolved) {
             setIsSolved(false)
         }
     }, [content])
 
-    async function onSetBlock(type) {
-        if (type === null) {
-            mentorLeft()
-            return
-        }
-        const block = await loadBlock(type)
-        setContent(block.content)
-    }
-
-    async function mentorLeft() {
-        await editContent('')
-        navigate('/lobby')
-
-    }
+    useEffect(() => {
+        if (currBlock) setContent(currBlock.content)
+    }, [currBlock])
 
     async function editContent(editedContent) {
         setContent(editedContent)

@@ -14,7 +14,7 @@ export function Lobby() {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_SET_CURR_USER, setUser)
-        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, setBlock)
+        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, loadBlock)
        
         return () => {
             socketService.off(SOCKET_EVENT_SET_CURR_USER, setUser)
@@ -26,10 +26,6 @@ export function Lobby() {
         dispatch({ type: SET_CURR_USER, currUser: user })
     }
 
-    function setBlock(type) {
-        loadBlock(type)
-    }
-
     function getClass(type) {
         if (!currUser || currUser.isMentor) return 'mentor-option'
         if (currBlock && currBlock.type === type) return 'student-option'
@@ -38,9 +34,7 @@ export function Lobby() {
 
     function onSetBlock(url) {
         if (!currUser.isMentor && currBlock.type !== url) return
-
         navigate(`/code/${url}`)
-
     }
 
     return <section className="lobby">

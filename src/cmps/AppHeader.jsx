@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { SOCKET_EMIT_SET_BLOCK_TYPE, socketService } from "../services/socket.service"
+import { updateBlock } from "../store/actions/block.actions"
 
 export function AppHeader() {
     const navigate = useNavigate()
     const currUser = useSelector(state => state.blockModule.currUser)
+    const currBlock = useSelector(state => state.blockModule.currBlock)
     const amount = useSelector(state => state.blockModule.usersAmount)
-    function toLobby() {
+    async function toLobby() {
         navigate('/lobby')
-        if (currUser.isMentor) {
+        if (currUser.isMentor && currBlock) {
+            await updateBlock({ ...currBlock, content: '' })
             socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, null)
         }
     }
