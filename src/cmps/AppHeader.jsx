@@ -30,8 +30,7 @@ export function AppHeader() {
     }
 
     return <section className="app-header">
-        <p onClick={toLobby} >Lobby</p>
-        <h3>CodeSync</h3>
+        <h3 onClick={toLobby}>CodeSync</h3>
         <p>{getConectionStr()}</p>
     </section>
 }

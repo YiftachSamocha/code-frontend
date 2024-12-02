@@ -34,10 +34,13 @@ export function CodeIndex() {
 
 
     return <section className="code-index">
-        <h3>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h3>
         <div>
-            <div></div>
-            <CodeBlock currBlock={currBlock} />
+            <h3>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h3>
+            <div className="challenge">
+                <h4>{currBlock && currBlock.title}</h4>
+                <p>{currBlock && currBlock.challenge}</p>
+            </div>
         </div>
+        <CodeBlock currBlock={currBlock} />
     </section>
 }

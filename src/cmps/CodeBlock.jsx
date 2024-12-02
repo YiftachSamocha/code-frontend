@@ -62,9 +62,8 @@ export function CodeBlock({ currBlock }) {
                 <Lottie animationData={animationData} loop={true} autoPlay={true} style={{ width: '200px', height: '200px' }} />
                 {currUser.isMentor && <button onClick={startOver}>Start over</button>}
             </div> :
-                <div>
+                <div className="editor-cont">
                     <AceEditor
-                        placeholder="Placeholder Text"
                         mode="javascript"
                         theme={isDarkMode ? 'monokai' : 'tomorrow'}
                         name="blah2"

@@ -1,18 +1,51 @@
-.code-index{
+.code-index {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    flex-direction: column;
-    h1{
+    justify-content: space-around;
+    height: 100%;
+    padding-block: 2em;
+
+    h3 {
         font-size: 2em;
         margin-block-end: 0;
         color: black;
-        
-    }
-    h3{
-        font-size: 1.3em;
-       
+
     }
 
-  
+    >div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 100%;
+
+        .challenge {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5em;
+            margin: 1em;
+            border: 1px solid #f1f1f1;
+            max-width: 500px;
+
+            h4 {
+                font-size: 1.25em;
+                font-weight: bold;
+                margin-bottom: 0.5em;
+                color: #004d40;
+                cursor: default;
+            }
+
+            p {
+                font-size: 1em;
+                line-height: 1.5;
+                color: #555;
+                margin: 0;
+            }
+
+
+        }
+    }
+
+
 }
