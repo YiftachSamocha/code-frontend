@@ -6,6 +6,7 @@ export const blockService = {
     save,
     remove,
     getTitle,
+    compareFunctions,
 }
 
 async function query(filterBy = { txt: '', price: 0 }) {
@@ -42,4 +43,26 @@ function getTitle(type) {
 
         default: ''
     }
+}
+
+function parseFunctionCode(code) {
+    try {
+        return parse(code);
+    } catch (err) {
+        console.error('Error parsing code:', err);
+        return null;
+    }
+}
+
+// Function to compare two functions
+function compareFunctions(func1, func2) {
+    const ast1 = parseFunctionCode(func1);
+    const ast2 = parseFunctionCode(func2);
+
+    if (!ast1 || !ast2) {
+        return false; // If either cannot be parsed, return false
+    }
+
+    // Compare the two ASTs (this could be more sophisticated, but for now, we will use deep equality)
+    return JSON.stringify(ast1) === JSON.stringify(ast2);
 }

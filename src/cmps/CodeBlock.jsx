@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { updateBlock } from "../store/actions/block.actions"
 import { useSelector } from "react-redux"
 import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EVENT_BLOCK_EDITED, socketService } from "../services/socket.service"
-import { useNavigate } from "react-router"
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-tomorrow";
@@ -10,6 +9,7 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 import Lottie from "lottie-react"
 import animationData from '../assets/img/smiley-animation.json'
+import { compareFunctions } from "../services/block/compare.service";
 
 
 export function CodeBlock({ currBlock }) {
@@ -26,11 +26,7 @@ export function CodeBlock({ currBlock }) {
     }, [currBlock])
 
     useEffect(() => {
-        if (currBlock && content === currBlock.solution && !isSolved) {
-            setIsSolved(true)
-        } else if (currBlock && content !== currBlock.solution && isSolved) {
-            setIsSolved(false)
-        }
+        checkSolution()
     }, [content])
 
     useEffect(() => {
@@ -50,15 +46,27 @@ export function CodeBlock({ currBlock }) {
     }
 
     async function startOver() {
-        await editContent('')
-        socketService.emit(SOCKET_EMIT_EDIT_BLOCK, '')
+        await editContent(currBlock.starter)
+        socketService.emit(SOCKET_EMIT_EDIT_BLOCK, currBlock.starter)
         setIsSolved(false)
+    }
+
+    function checkSolution() {
+        var solutionCheck
+        if (currBlock) {
+            solutionCheck = compareFunctions(content, currBlock.solution)
+            if (isSolved && !solutionCheck) {
+                setIsSolved(false)
+            } else if (!isSolved && solutionCheck) {
+                setIsSolved(true)
+            }
+        }
     }
 
     return <section className="code-block">
         <div className="solved-cont">
             {isSolved ? <div>
-                <h3>Congratulations! You solved the challenge</h3>
+                <h3>{currUser.isMentor ? 'Challenge solved!' : 'Congratulations! You solved the challenge'}</h3>
                 <Lottie animationData={animationData} loop={true} autoPlay={true} style={{ width: '200px', height: '200px' }} />
                 {currUser.isMentor && <button onClick={startOver}>Start over</button>}
             </div> :

@@ -11,7 +11,7 @@ export function AppHeader() {
     async function toLobby() {
         navigate('/lobby')
         if (currUser.isMentor && currBlock) {
-            await updateBlock({ ...currBlock, content: '' })
+            await updateBlock({ ...currBlock, content: currBlock.starter })
             socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, null)
         }
     }
