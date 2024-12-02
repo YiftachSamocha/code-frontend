@@ -2,21 +2,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #004d40;
+    background-color: $main-color;
     color: white;
     padding: 1em 4em;
-
-    >* {
-        cursor: default;
-
-    }
+    position: relative;
 
     p,
-    h3 {
+    h3,
+    h4 {
         margin: 0;
     }
-    h3{
+
+    h3 {
         cursor: pointer;
+    }
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); // Center the element horizontally and vertically
     }
 
 

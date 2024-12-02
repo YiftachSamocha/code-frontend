@@ -15,21 +15,17 @@
 
     .code-cont {
         display: flex;
-        align-items: center;
         justify-content: space-around;
         height: 100%;
-
-
+        width: 100%;
 
         >div {
             
-
-
             .challenge {
-                background-color: #ffffff;
+                background-color: white;
                 border-radius: 12px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                padding: 1.5em;
+                padding: 1em;
                 margin: 1em;
                 border: 1px solid #f1f1f1;
                 max-width: 500px;
@@ -38,7 +34,7 @@
                     font-size: 1.25em;
                     font-weight: bold;
                     margin-bottom: 0.5em;
-                    color: #004d40;
+                    color: $main-color;
                     cursor: default;
                 }
 

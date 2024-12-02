@@ -24,14 +24,14 @@ export function AppHeader() {
             else if (amount > 2) return `${amount - 1} studens are connected`
         } else {
             if (amount === 2) return 'The mentor is connected'
-            else if (amount === 3) return 'The mentor and 1 user are connected'
-            else if (amount > 3) return `The mentor and ${amount - 1} users are connected`
+            else if (amount === 3) return 'The mentor and 1 other user are connected'
+            else if (amount > 3) return `The mentor and ${amount - 2} other users are connected`
         }
     }
 
     return <section className="app-header">
-        <h3 onClick={toLobby}>CodeSync</h3>
-        <h4>{currUser.isMentor ? 'Hello Mentor' : 'Hello student'}</h4>
+        <h3 onClick={toLobby}>{`CodeSync</>`}</h3>
+        <div className="centered"><h4>{currUser.isMentor ? 'MENTOR' : 'STUDENT'}</h4></div>
         <p>{getConectionStr()}</p>
     </section>
 }

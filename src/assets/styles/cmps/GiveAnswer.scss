@@ -41,8 +41,8 @@
 
             &:focus {
                 outline: none;
-                border-color: #ff385c;
-                box-shadow: 0 0 4px rgba(255, 56, 92, 0.5);
+                border-color: $main-color;
+                box-shadow: 0 0 4px $main-color-darker(255, 56, 92, 0.5);
             }
         }
 

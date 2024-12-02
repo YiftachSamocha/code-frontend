@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1em;
-    background-color: #f9f9f9;
+    padding: 0.7em;
+    background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 500px;
@@ -27,9 +27,9 @@
         transition: border-color 0.3s ease;
 
         &:focus {
-            border-color: #ff385c;
+            border-color: $main-color;
             outline: none;
-            box-shadow: 0 0 5px rgba(255, 56, 92, 0.5);
+            box-shadow: 0 0 5px #004237(255, 56, 92, 0.5);
         }
     }
 
@@ -40,7 +40,7 @@
 
 
         button {
-            background-color: #ff385c;
+            background-color: $main-color;
             color: white;
             border: none;
             border-radius: 8px;
@@ -50,7 +50,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
 
             &:hover {
-                background-color: #d8344b;
+                background-color: #014136;
                 transform: scale(1.05);
             }
 
@@ -67,18 +67,7 @@
         p {
             margin: 0;
             font-size: 1em;
-            color: green;
-            // animation: fadeOut 3s forwards;
-
-            // @keyframes fadeOut {
-            //     0% {
-            //         opacity: 1;
-            //     }
-
-            //     100% {
-            //         opacity: 0;
-            //     }
-            // }
+            color: $main-color;
         }
     }
 }

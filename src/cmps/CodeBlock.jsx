@@ -79,7 +79,7 @@ export function CodeBlock({ currBlock }) {
                         fontSize={14}
                         lineHeight={19}
                         width="700px"
-                        height="450px"
+                        height="400px"
                         showPrintMargin={true}
                         showGutter={true}
                         highlightActiveLine={true}

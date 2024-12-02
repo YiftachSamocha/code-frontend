@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_TYPE_CHOSEN, socketService } from "../services/socket.service";
 import { loadBlock } from "../store/actions/block.actions";
 import { AskQuestion } from "../cmps/msgs-cmps/AskQuestion";
+import { compareFunctions } from "../services/block/compare.service";
 
 export function CodeIndex() {
     const type = useParams().type
@@ -33,6 +34,9 @@ export function CodeIndex() {
 
     }
 
+    function isSolved(code1, code2){
+        return compareFunctions(code1,code2)
+    }
 
     return <section className="code-index">
         <div className="code-cont">
@@ -42,7 +46,7 @@ export function CodeIndex() {
                     <h5>{currBlock && `Challenge: ${currBlock.subtitle}`}</h5>
                     <p>{currBlock && currBlock.challenge}</p>
                 </div>
-                {!currUser.isMentor && <AskQuestion />}
+                {!currUser.isMentor  && <AskQuestion />}
             </div>
             <CodeBlock currBlock={currBlock} />
         </div>

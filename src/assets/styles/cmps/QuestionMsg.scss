@@ -8,7 +8,7 @@
     z-index: 1000;
 
     .msg-item {
-        @include msg-style(#ffffff, #004d40);
+        @include msg-style(#ffffff, $main-color);
 
         .btn-cont {
             display: flex;
