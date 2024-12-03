@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { updateBlock } from "../store/actions/block.actions"
 import { useSelector } from "react-redux"
 import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EVENT_BLOCK_EDITED, socketService } from "../services/socket.service"
 import AceEditor from "react-ace";
@@ -9,12 +8,14 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
 import Lottie from "lottie-react"
 import animationData from '../assets/img/smiley-animation.json'
-import { compareFunctions } from "../services/block/compare.service";
+import { updateBlock } from "../store/block.actions";
+import { compareFunctions } from "../services/util.service";
+
 
 
 export function CodeBlock({ currBlock }) {
     const [content, setContent] = useState('')
-    const currUser = useSelector(state => state.blockModule.currUser)
+    const currUser = useSelector(state => state.currUser)
     const [isDarkMode, setIsDarkMode] = useState(true)
     const [isSolved, setIsSolved] = useState(false)
     const [blockSize, setBlockSize] = useState({ width: '600px', height: '450px' })

@@ -1,3 +1,62 @@
+import { parseScript } from "esprima";
+const EASY_OPEN = 'YIFTACH_IN_MOVEO'
+
+function extractAndNormalizeFunctions(code) {
+    try {
+        const ast = parseScript(code, { range: true, comment: true });
+        const functions = [];
+
+        function traverse(node) {
+            if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression') {
+                const body = code.slice(node.body.range[0], node.body.range[1]);
+                const normalizedBody = body
+                    .replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '') // Remove comments
+                    .replace(/console\.log\(.*?\);?/g, '') // Remove console.log
+                    .replace(/(let|const|var) [^;]+;/g, '') // Remove variable declarations
+                    .replace(/\s+/g, ' ') // Normalize spaces
+                    .trim();
+                functions.push(normalizedBody);
+            }
+
+            // Traverse child nodes
+            for (const key in node) {
+                if (node[key] && typeof node[key] === 'object') {
+                    traverse(node[key]);
+                }
+            }
+        }
+
+        traverse(ast);
+        return functions;
+    } catch (error) {
+        // Return an empty array if parsing fails
+        return [];
+    }
+}
+
+export function compareFunctions(code1, code2) {
+    if (code1 === EASY_OPEN || code2 === EASY_OPEN) return true
+    try {
+        const functions1 = extractAndNormalizeFunctions(code1);
+        const functions2 = extractAndNormalizeFunctions(code2);
+
+        if (!functions1.length || !functions2.length) {
+            return false; // Return false if parsing failed for either code block
+        }
+
+        for (const func1 of functions1) {
+            for (const func2 of functions2) {
+                if (func1 === func2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    } catch (error) {
+        return false;
+    }
+}
+
 export function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -7,47 +66,4 @@ export function makeId(length = 6) {
     }
 
     return txt
-}
-
-export function makeLorem(size = 100) {
-    var words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn']
-    var txt = ''
-    while (size > 0) {
-        size--
-        txt += words[Math.floor(Math.random() * words.length)] + ' '
-    }
-    return txt
-}
-
-export function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive 
-}
-
-
-export function randomPastTime() {
-    const HOUR = 1000 * 60 * 60
-    const DAY = 1000 * 60 * 60 * 24
-    const WEEK = 1000 * 60 * 60 * 24 * 7
-
-    const pastTime = getRandomIntInclusive(HOUR, WEEK)
-    return Date.now() - pastTime
-}
-
-export function debounce(func, timeout = 300) {
-    let timer
-    return (...args) => {
-        clearTimeout(timer)
-        timer = setTimeout(() => { func.apply(this, args) }, timeout)
-    }
-}
-
-export function saveToStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value))
-}
-
-export function loadFromStorage(key) {
-    const data = localStorage.getItem(key)
-    return (data) ? JSON.parse(data) : undefined
 }

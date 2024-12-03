@@ -3,14 +3,14 @@ import { CodeBlock } from "../cmps/CodeBlock";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SOCKET_EMIT_SET_BLOCK_TYPE, SOCKET_EVENT_BLOCK_TYPE_CHOSEN, socketService } from "../services/socket.service";
-import { loadBlock } from "../store/actions/block.actions";
 import { AskQuestion } from "../cmps/msgs-cmps/AskQuestion";
-import { compareFunctions } from "../services/block/compare.service";
+import { loadBlock } from "../store/block.actions";
+
 
 export function CodeIndex() {
     const type = useParams().type
-    const currUser = useSelector(state => state.blockModule.currUser)
-    const currBlock = useSelector(state => state.blockModule.currBlock)
+    const currUser = useSelector(state => state.currUser)
+    const currBlock = useSelector(state => state.currBlock)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -32,10 +32,6 @@ export function CodeIndex() {
         const block = await loadBlock(type)
         if (!block) navigate('/lobby')
 
-    }
-
-    function isSolved(code1, code2) {
-        return compareFunctions(code1, code2)
     }
 
     return <section className="code-index">

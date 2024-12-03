@@ -1,15 +1,7 @@
 // Setup
 @import "setup/variables";
-@import "setup/functions";
 @import "setup/mixin";
-@import "setup/typography";
-
-// Basics
-@import "basics/helpers";
-
-@import "basics/base";
-@import "basics/links";
-
+@import "setup/base";
 
 // pages
 @import "RootCmp.scss";
@@ -25,4 +17,6 @@
 @import "cmps/GiveAnswer.scss";
 @import "cmps/QuestionMsg.scss";
 
-@import "basics/layout";
+@import "layout.scss";
+@import "RootCmp.scss";
+

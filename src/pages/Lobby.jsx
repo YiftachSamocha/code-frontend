@@ -2,15 +2,15 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router"
 import { SOCKET_EVENT_BLOCK_TYPE_CHOSEN, SOCKET_EVENT_SET_CURR_USER, socketService } from "../services/socket.service"
 import { useDispatch, useSelector } from "react-redux"
-import { SET_CURR_USER } from "../store/reducers/block.reducer"
-import { loadBlock } from "../store/actions/block.actions"
+import { SET_CURR_USER } from "../store/block.reducer"
+import { loadBlock } from "../store/block.actions"
 
 
 export function Lobby() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const currUser = useSelector(state => state.blockModule.currUser)
-    const currBlock = useSelector(state => state.blockModule.currBlock)
+    const currUser = useSelector(state => state.currUser)
+    const currBlock = useSelector(state => state.currBlock)
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_SET_CURR_USER, setUser)

@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { SOCKET_EMIT_SET_BLOCK_TYPE, socketService } from "../services/socket.service"
-import { updateBlock } from "../store/actions/block.actions"
 import { useEffect, useState } from "react"
+import { updateBlock } from "../store/block.actions"
 
 export function AppHeader() {
     const [isNarrow, setIsNarrow] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const navigate = useNavigate()
-    const currUser = useSelector(state => state.blockModule.currUser)
-    const currBlock = useSelector(state => state.blockModule.currBlock)
-    const amount = useSelector(state => state.blockModule.usersAmount)
+    const currUser = useSelector(state => state.currUser)
+    const currBlock = useSelector(state => state.currBlock)
+    const amount = useSelector(state => state.usersAmount)
 
 
     useEffect(() => {

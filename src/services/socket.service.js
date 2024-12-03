@@ -1,5 +1,4 @@
 import io from 'socket.io-client'
-import { userService } from './user'
 
 export const SOCKET_EMIT_SET_BLOCK_TYPE = 'set-block-type'
 export const SOCKET_EMIT_EDIT_BLOCK = 'edit-block'
@@ -12,8 +11,6 @@ export const SOCKET_EVENT_SET_CURR_USER = 'set-curr-user'
 export const SOCKET_EVENT_SET_USERS_AMOUNT= 'set-users-amount'
 export const SOCKET_EVENT_GET_QUESTION = 'get-question'
 export const SOCKET_EVENT_GET_ANSWER = 'get-answer'
-
-
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 export const socketService = createSocketService()
@@ -30,8 +27,6 @@ function createSocketService() {
   const socketService = {
     setup() {
       socket = io(baseUrl)
-      const user = userService.getLoggedinUser()
-      if (user) this.login(user._id)
     },
     on(eventName, cb) {
       socket.on(eventName, cb)
@@ -43,12 +38,6 @@ function createSocketService() {
     },
     emit(eventName, data) {
       socket.emit(eventName, data)
-    },
-    login(userId) {
-      socket.emit(SOCKET_EMIT_LOGIN, userId)
-    },
-    logout() {
-      socket.emit(SOCKET_EMIT_LOGOUT)
     },
     terminate() {
       socket = null
