@@ -15,7 +15,7 @@ export function Lobby() {
     useEffect(() => {
         socketService.on(SOCKET_EVENT_SET_CURR_USER, setUser)
         socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, loadBlock)
-       
+
         return () => {
             socketService.off(SOCKET_EVENT_SET_CURR_USER, setUser)
             socketService.off(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, loadBlock)
@@ -40,12 +40,31 @@ export function Lobby() {
     return <section className="lobby">
         <h1>Choose code block</h1>
         <div className="lobby-container">
-            <div onClick={() => onSetBlock('async')} className={getClass('async')} >Async case</div>
-            <div onClick={() => onSetBlock('dom')} className={getClass('dom')}>DOM manipulation</div>
-            <div onClick={() => onSetBlock('array')} className={getClass('array')}>Array methods</div>
-            <div onClick={() => onSetBlock('event')} className={getClass('event')}>Event loop</div>
-            <div onClick={() => onSetBlock('error')} className={getClass('error')}>Error handeling</div>
-            <div onClick={() => onSetBlock('data')} className={getClass('data')} >Data structures</div>
+            <div onClick={() => onSetBlock('async')} className={getClass('async')} >
+                <i className="fa-regular fa-hourglass"></i>
+                <p> Async case</p>
+
+            </div>
+            <div onClick={() => onSetBlock('dom')} className={getClass('dom')}>
+                <i className="fa-solid fa-pen"></i>
+                <p>DOM manipulation</p>
+            </div>
+            <div onClick={() => onSetBlock('array')} className={getClass('array')}>
+                <i className="fa-solid fa-layer-group"></i>
+                <p>Array methods</p>
+            </div>
+            <div onClick={() => onSetBlock('event')} className={getClass('event')}>
+                <i className="fa-solid fa-arrows-rotate"></i>
+                <p> Event loop</p>
+            </div>
+            <div onClick={() => onSetBlock('error')} className={getClass('error')}>
+                <i className="fa-solid fa-triangle-exclamation"></i>
+                <p>Error handeling</p>
+            </div>
+            <div onClick={() => onSetBlock('data')} className={getClass('data')} >
+                <i className="fa-solid fa-database"></i>
+                <p>Data structures</p>
+            </div>
         </div>
     </section>
 }

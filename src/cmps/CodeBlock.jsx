@@ -67,7 +67,8 @@ export function CodeBlock({ currBlock }) {
         <div >
             {isSolved ? <div className="solved-cont">
                 <h3>{currUser.isMentor ? 'Challenge solved!' : 'Congratulations! You solved the challenge'}</h3>
-                <Lottie animationData={animationData} loop={true} autoPlay={true} style={{ width: '200px', height: '200px' }} />
+                <Lottie animationData={animationData} loop={true} autoPlay={true}
+                    style={{ width: '200px', height: '200px' }} />
                 {currUser.isMentor && <button onClick={startOver}>Start over</button>}
             </div> :
                 <div className="editor-cont">
@@ -80,7 +81,7 @@ export function CodeBlock({ currBlock }) {
                         lineHeight={19}
                         width="700px"
                         height="400px"
-                        showPrintMargin={true}
+                        showPrintMargin={false}
                         showGutter={true}
                         highlightActiveLine={true}
                         value={content}
@@ -92,9 +93,11 @@ export function CodeBlock({ currBlock }) {
                             enableMobileMenu: true,
                             showLineNumbers: true,
                             tabSize: 2,
-                        }} />
+                            
+                        }}
+                    />
                     <button className={isDarkMode ? 'dark' : 'light'}
-                        onClick={() => setIsDarkMode(prev => !prev)}>{isDarkMode ? 'Light mode' : 'Dark mode'}</button>
+                        onClick={() => setIsDarkMode(prev => !prev)}>{isDarkMode ? 'Dark mode' : 'Light mode'}</button>
                 </div>
             }
         </div>

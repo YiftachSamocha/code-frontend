@@ -17,8 +17,8 @@
         max-width: 800px;
 
         div {
-            font-size: 2em;
-            padding: 1em;
+            font-size: 1.8em;
+            padding: 0.6em;
             background-color: $secondary-color;
             border-radius: 10px;
             cursor: pointer;
@@ -29,6 +29,10 @@
             &:hover {
                 transform: scale(1.05);
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+            p{
+                margin: 0;
+                cursor: pointer;
             }
         }
 
