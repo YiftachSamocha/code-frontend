@@ -12,7 +12,16 @@
 
         button {
             background-color: $main-color;
+            color: white;
+            border: 0;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+
+            &:hover {
+                background-color: $main-color-darker;
+                transform: scale(1.05);
+            }
         }
+        
     }
 
     button {
@@ -21,19 +30,34 @@
         padding: 0.5em;
         font-size: 1em;
         border-radius: 5px;
+        max-height: 45px;
+        max-width: 120px;
+        cursor: pointer;
     }
 
     .dark {
         background-color: #2F3129;
         color: #F6F6F6;
+        &:hover{
+            background-color: #20221c;
+           
+
+        }
     }
 
     .light {
         background-color: #F6F6F6;
         color: #2F3129;
+        &:hover{
+            background-color: #dbd8d8;
+            
+        }
     }
 
     .editor-cont {
         margin: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }

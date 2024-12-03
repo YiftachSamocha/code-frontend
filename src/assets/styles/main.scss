@@ -6,10 +6,9 @@
 
 // Basics
 @import "basics/helpers";
-@import "basics/layout";
+
 @import "basics/base";
 @import "basics/links";
-@import "basics/forms";
 
 
 // pages
@@ -25,3 +24,5 @@
 @import "cmps/AskQuestion.scss";
 @import "cmps/GiveAnswer.scss";
 @import "cmps/QuestionMsg.scss";
+
+@import "basics/layout";

@@ -34,21 +34,19 @@ export function CodeIndex() {
 
     }
 
-    function isSolved(code1, code2){
-        return compareFunctions(code1,code2)
+    function isSolved(code1, code2) {
+        return compareFunctions(code1, code2)
     }
 
     return <section className="code-index">
-        <div className="code-cont">
-            <div>
-                <div className="challenge">
-                    <h4>{currBlock && currBlock.title}</h4>
-                    <h5>{currBlock && `Challenge: ${currBlock.subtitle}`}</h5>
-                    <p>{currBlock && currBlock.challenge}</p>
-                </div>
-                {!currUser.isMentor  && <AskQuestion />}
+        <div className="cards-cont">
+            <div className="challenge">
+                <h4>{currBlock && currBlock.title}</h4>
+                <h5>{currBlock && `Challenge: ${currBlock.subtitle}`}</h5>
+                <p>{currBlock && currBlock.challenge}</p>
             </div>
-            <CodeBlock currBlock={currBlock} />
+            {!currUser.isMentor && <AskQuestion />}
         </div>
+        <CodeBlock currBlock={currBlock} />
     </section>
 }

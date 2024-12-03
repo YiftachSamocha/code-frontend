@@ -2,12 +2,32 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import { SOCKET_EMIT_SET_BLOCK_TYPE, socketService } from "../services/socket.service"
 import { updateBlock } from "../store/actions/block.actions"
+import { useEffect, useState } from "react"
 
 export function AppHeader() {
+    const [isNarrow, setIsNarrow] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const navigate = useNavigate()
     const currUser = useSelector(state => state.blockModule.currUser)
     const currBlock = useSelector(state => state.blockModule.currBlock)
     const amount = useSelector(state => state.blockModule.usersAmount)
+
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth > 1200 && isNarrow) {
+                setIsNarrow(false)
+            } else if (window.innerWidth <= 1200 && !isNarrow) {
+                setIsNarrow(true)
+            }
+        }
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    })
+
     async function toLobby() {
         navigate('/lobby')
         if (currUser.isMentor && currBlock) {
@@ -32,6 +52,9 @@ export function AppHeader() {
     return <section className="app-header">
         <h3 onClick={toLobby}>{`CodeSync</>`}</h3>
         <div className="centered"><h4>{currUser.isMentor ? 'MENTOR' : 'STUDENT'}</h4></div>
-        <p>{getConectionStr()}</p>
+        {isNarrow ? <div className="connection-container">
+            <p onClick={() => setIsModalOpen(prev => !prev)}>Who's connected?</p>
+            {isModalOpen && <div className="connection-modal">{getConectionStr()}</div>}
+        </div> : <p>{getConectionStr()}</p>}
     </section>
 }

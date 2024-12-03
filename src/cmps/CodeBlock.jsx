@@ -17,6 +17,7 @@ export function CodeBlock({ currBlock }) {
     const currUser = useSelector(state => state.blockModule.currUser)
     const [isDarkMode, setIsDarkMode] = useState(true)
     const [isSolved, setIsSolved] = useState(false)
+    const [blockSize, setBlockSize] = useState({ width: '600px', height: '450px' })
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BLOCK_EDITED, editContent)
@@ -32,6 +33,32 @@ export function CodeBlock({ currBlock }) {
     useEffect(() => {
         if (currBlock) setContent(currBlock.content)
     }, [currBlock])
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth < 720) {
+                if (blockSize.width !== '350px' || blockSize.height !== '300px') {
+                    setBlockSize({ width: '350px', height: '300px' })
+                }
+            } else if (window.innerWidth < 1200) {
+                if (blockSize.width !== '500px' || blockSize.height !== '310px') {
+                    setBlockSize({ width: '500px', height: '310px' })
+                }
+            } else if (window.innerWidth >= 1200) {
+                if (blockSize.width !== '600px' || blockSize.height !== '450px') {
+                    setBlockSize({ width: '600px', height: '450px' })
+                }
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, [blockSize])
+
+
 
     async function editContent(editedContent) {
         setContent(editedContent)
@@ -79,8 +106,8 @@ export function CodeBlock({ currBlock }) {
                         onChange={handleChange}
                         fontSize={14}
                         lineHeight={19}
-                        width="700px"
-                        height="400px"
+                        width={blockSize.width}
+                        height={blockSize.height}
                         showPrintMargin={false}
                         showGutter={true}
                         highlightActiveLine={true}
@@ -93,7 +120,7 @@ export function CodeBlock({ currBlock }) {
                             enableMobileMenu: true,
                             showLineNumbers: true,
                             tabSize: 2,
-                            
+
                         }}
                     />
                     <button className={isDarkMode ? 'dark' : 'light'}
