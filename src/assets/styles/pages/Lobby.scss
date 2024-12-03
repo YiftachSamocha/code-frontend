@@ -19,7 +19,7 @@
         div {
             font-size: 2em;
             padding: 1em;
-            background-color: #008080;
+            background-color: $secondary-color;
             border-radius: 10px;
             cursor: pointer;
             color: white;
@@ -33,7 +33,7 @@
         }
 
         .mentor-option {
-            background-color: #008080;
+            background-color:  $secondary-color;
         }
 
         .student-option {

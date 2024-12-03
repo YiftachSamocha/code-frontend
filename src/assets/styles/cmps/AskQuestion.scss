@@ -29,7 +29,7 @@
         &:focus {
             border-color: $main-color;
             outline: none;
-            box-shadow: 0 0 5px #004237(255, 56, 92, 0.5);
+            box-shadow: 0 0 5px $main-color-darker(255, 56, 92, 0.5);
         }
     }
 
@@ -50,7 +50,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
 
             &:hover {
-                background-color: #014136;
+                background-color: $main-color-darker;
                 transform: scale(1.05);
             }
 
