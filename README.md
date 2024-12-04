@@ -1,5 +1,5 @@
 # CodeSync - A Real-Time Code Mentoring Platform
-![Alt Text](src/assets/img/code-icon.png.jpg)
+![Alt Text](public/img/code-icon.png)
 
 CodeSync is an interactive platform designed for code mentors to observe their students' coding work in real-time, with options for live updates, questions, and answers. It provides a seamless environment where mentors and students can collaborate on coding challenges, ask questions, and get feedback during coding sessions.
 
@@ -15,7 +15,7 @@ CodeSync is an interactive platform designed for code mentors to observe their s
 
 1. **Clone the repository**:
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/YiftachSamocha/codesync-frontend.git
     ```
 
 2. **Install dependencies**:
@@ -38,7 +38,6 @@ The platform consists of multiple components to ensure efficient interaction bet
 - **Root Component (`RootCmp`)**: This component initializes the application and manages routing, including pages for the lobby and coding challenges.
 - **Code Blocks (`CodeBlock`)**: Each coding challenge is displayed in a code editor, where students can write and modify code in real-time. Mentors can view these changes as they happen.
 - **Lobby (`Lobby`)**: Students can choose a coding challenge block from the lobby. Each block represents a different challenge (e.g., Async Programming, DOM Manipulation, etc.).
-- **Messaging System**: Students can ask questions during their coding sessions, and mentors can respond with answers.
 
 ## Technologies Used
 
@@ -53,9 +52,6 @@ The platform consists of multiple components to ensure efficient interaction bet
 - `/code/:type`: A page for a specific coding challenge, where students can write and modify code.
 
 
-## Next Steps
-
-Once the frontend is set up, the backend will handle user authentication, manage socket connections for real-time updates, and provide the necessary API routes for saving and retrieving code blocks. I'll send you the backend code shortly for further integration.
 
 ## Conclusion
 
