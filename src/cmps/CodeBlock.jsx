@@ -52,6 +52,8 @@ export function CodeBlock({ currBlock }) {
             }
         }
 
+        handleResize()
+
         window.addEventListener('resize', handleResize);
 
         return () => {

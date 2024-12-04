@@ -21,6 +21,7 @@ export function AppHeader() {
                 setIsNarrow(true)
             }
         }
+        handleResize()
         window.addEventListener('resize', handleResize);
 
         return () => {

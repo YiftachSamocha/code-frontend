@@ -9,6 +9,8 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        margin-block: 0.8em;
+
 
         button {
             background-color: $main-color;
@@ -21,7 +23,7 @@
                 transform: scale(1.05);
             }
         }
-        
+
     }
 
     button {
@@ -38,9 +40,10 @@
     .dark {
         background-color: #2F3129;
         color: #F6F6F6;
-        &:hover{
+
+        &:hover {
             background-color: #20221c;
-           
+
 
         }
     }
@@ -48,9 +51,10 @@
     .light {
         background-color: #F6F6F6;
         color: #2F3129;
-        &:hover{
+
+        &:hover {
             background-color: #dbd8d8;
-            
+
         }
     }
 
