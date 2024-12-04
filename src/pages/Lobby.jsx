@@ -1,30 +1,10 @@
-import { useEffect } from "react"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
-import { SOCKET_EVENT_BLOCK_TYPE_CHOSEN, SOCKET_EVENT_SET_CURR_USER, socketService } from "../services/socket.service"
-import { useDispatch, useSelector } from "react-redux"
-import { SET_CURR_USER } from "../store/block.reducer"
-import { loadBlock } from "../store/block.actions"
-
 
 export function Lobby() {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
     const currUser = useSelector(state => state.currUser)
     const currBlock = useSelector(state => state.currBlock)
-
-    useEffect(() => {
-        socketService.on(SOCKET_EVENT_SET_CURR_USER, setUser)
-        socketService.on(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, loadBlock)
-
-        return () => {
-            socketService.off(SOCKET_EVENT_SET_CURR_USER, setUser)
-            socketService.off(SOCKET_EVENT_BLOCK_TYPE_CHOSEN, loadBlock)
-        }
-    }, [])
-
-    function setUser(user) {
-        dispatch({ type: SET_CURR_USER, currUser: user })
-    }
+    const navigate = useNavigate()
 
     function getClass(type) {
         if (!currUser || currUser.isMentor) return 'mentor-option'

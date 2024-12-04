@@ -67,9 +67,9 @@ export function CodeBlock({ currBlock }) {
         await updateBlock(blockToUpdate)
     }
 
-    function handleChange(value) {
+    async function handleChange(value) {
         if (currUser.isMentor) return
-        editContent(value)
+        await editContent(value)
         socketService.emit(SOCKET_EMIT_EDIT_BLOCK, value)
     }
 
@@ -113,7 +113,7 @@ export function CodeBlock({ currBlock }) {
                         showGutter={true}
                         highlightActiveLine={true}
                         value={content}
-                        readOnly={currUser.isMentor ? true : false}
+                        readOnly={(currUser && currUser.isMentor) ? true : false}
                         setOptions={{
                             enableBasicAutocompletion: false,
                             enableLiveAutocompletion: false,

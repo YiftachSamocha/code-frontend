@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
-import { SOCKET_EMIT_SET_BLOCK_TYPE, socketService } from "../services/socket.service"
+import { SOCKET_EMIT_GET_BLOCK_TYPE, socketService } from "../services/socket.service"
 import { useEffect, useState } from "react"
 import { updateBlock } from "../store/block.actions"
 
@@ -32,7 +32,7 @@ export function AppHeader() {
         navigate('/lobby')
         if (currUser.isMentor && currBlock) {
             await updateBlock({ ...currBlock, content: currBlock.starter })
-            socketService.emit(SOCKET_EMIT_SET_BLOCK_TYPE, null)
+            socketService.emit(SOCKET_EMIT_GET_BLOCK_TYPE, null)
         }
     }
 
@@ -51,7 +51,7 @@ export function AppHeader() {
 
     return <section className="app-header">
         <h3 onClick={toLobby}>{`CodeSync</>`}</h3>
-        <div className="centered"><h4>{currUser.isMentor ? 'MENTOR' : 'STUDENT'}</h4></div>
+        <div className="centered"><h4>{(currUser && currUser.isMentor) ? 'MENTOR' : 'STUDENT'}</h4></div>
         {isNarrow ? <div className="connection-container">
             <p onClick={() => setIsModalOpen(prev => !prev)}>Who's connected?</p>
             {isModalOpen && <div className="connection-modal">{getConectionStr()}</div>}

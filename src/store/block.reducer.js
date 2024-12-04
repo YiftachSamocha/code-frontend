@@ -5,7 +5,7 @@ export const SET_USERS_AMOUNT = 'SET_USERS_AMOUNT'
 
 const initialState = {
     currBlock: null,
-    currUser: {},
+    currUser: null,
     usersAmount: 0,
 }
 
