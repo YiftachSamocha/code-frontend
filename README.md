@@ -1,58 +1,64 @@
-# CodeSync - A Real-Time Code Mentoring Platform
+# CodeSync - Backend - A Real-Time Code Mentoring Platform
+
 <img src="public/img/code-icon.png"  width="250"  />
 
-CodeSync is an interactive platform designed for code mentors to observe their students' coding work in real-time, with options for live updates, questions, and answers. It provides a seamless environment where mentors and students can collaborate on coding challenges, ask questions, and get feedback during coding sessions.
+The backend of this application is built with **Node.js** and utilizes **MongoDB** for persistent data storage. It also integrates **Socket.IO** to enable real-time communication between users and mentors. The system is designed to efficiently handle dynamic interactions, such as updating blocks and managing real-time messaging, while ensuring smooth data management.
+
+## Installation and Setup
+
+### Clone the Repository
+
+Clone the backend repository from GitHub:
+
+```bash
+git clone https://github.com/YiftachSamocha/codesync-backend.git
+```
+
+### Install Dependencies
+
+Navigate to the project directory and install the required dependencies:
+
+```bash
+npm install
+```
+
+### Running the Server
+
+The `server.js` file is the entry point for the backend application. Use the following command to start the server in both development and production environments:
+
+```bash
+npm start
+```
 
 ## Features
 
-- **Live Code Editing**: Mentors can observe their students' code and interact in real-time.
-- **Question & Answer System**: Students can ask questions while coding, and mentors can provide answers.
-- **Dynamic Code Blocks**: The platform supports multiple coding challenges, allowing mentors to guide students through various programming problems.
-- **Responsive Layout**: The platform adapts to different screen sizes, ensuring a smooth experience on both mobile and desktop devices.
-- **Mentor and Student Roles**: The system distinguishes between mentors and students, providing tailored experiences based on the user role.
+### 1. **Block Service**
 
-## Frontend Setup
+The `blockService` is responsible for managing block-related data:
+- **Get Block by Type:** Retrieves a block based on its type from the MongoDB database. If no such block exists, it loads default block data from a JSON file and stores it in the database.
+- **Update Block:** Allows updating the block's data within the MongoDB collection.
+- **Data Creation:** If a block of a specified type is missing, it creates and inserts the default block data into MongoDB from a stored JSON file.
 
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/YiftachSamocha/codesync-frontend.git
-    ```
+### 2. **Block Routes and Controller**
 
-2. **Install dependencies**:
-    ```bash
-    npm i
-    ```
+API routes are defined to facilitate interaction with the block data:
+- **GET /:type:** Fetches a block based on its type, utilizing the `blockService` to retrieve the data.
+- **PUT /:** Allows updating a block’s data by sending updated information to the server, which is then saved in the database.
 
-3. **Start the development server**:
-    ```bash
-    npm run dev
-    ```
+### 3. **Socket Communication**
 
-4. **Visit the platform**: Open your browser and navigate to the following URL to access the app:
-    [CodeSync - Live Platform](https://codesync-71hs.onrender.com)
+Real-time interaction is handled using **Socket.IO**, allowing users to dynamically interact with each other:
+- **Block Type Management:** Users are assigned specific block types to join real-time rooms for interaction. Mentors and users communicate through these blocks, and real-time events help manage these interactions.
+- **Event Handling:** Key events such as editing blocks, sending questions, and receiving answers are handled live, enabling fluid communication.
 
-## How It Works
+### 4. **MongoDB Integration**
 
-The platform consists of multiple components to ensure efficient interaction between mentors and students. Here are some of the core components:
+**MongoDB** is used for data storage, providing flexibility with its NoSQL document structure. The backend stores and retrieves blocks and user interactions from the database.
 
-- **Root Component (`RootCmp`)**: This component initializes the application and manages routing, including pages for the lobby and coding challenges.
-- **Code Blocks (`CodeBlock`)**: Each coding challenge is displayed in a code editor, where students can write and modify code in real-time. Mentors can view these changes as they happen.
-- **Lobby (`Lobby`)**: Students can choose a coding challenge block from the lobby. Each block represents a different challenge (e.g., Async Programming, DOM Manipulation, etc.).
+### 5. **Node.js Framework**
 
-## Technologies Used
-
-- **React**: For building the user interface with components like `CodeBlock`, `Lobby`, and `AppHeader`.
-- **Redux**: For state management, including managing user data and code block content.
-- **Socket.io**: For real-time communication between the client and server, allowing for live code updates, question/answer messaging, and mentor interactions.
-- **Ace Editor**: For embedding a powerful code editor that supports syntax highlighting for various languages.
-
-## Available Routes
-
-- `/` or `/lobby`: The lobby page where students can select coding challenges.
-- `/code/:type`: A page for a specific coding challenge, where students can write and modify code.
-
-
+The backend leverages **Node.js** with the **Express.js** framework for creating and managing the API endpoints. **Socket.IO** ensures real-time communication, supporting features such as block updates and live chat between users and mentors.
 
 ## Conclusion
 
-CodeSync is a platform that brings real-time coding mentorship to life, allowing mentors and students to interact seamlessly and learn from each other. The real-time feedback system makes it ideal for collaborative learning in programming.
+The backend is designed to provide a robust foundation for dynamic user engagement, combining **Node.js**, **MongoDB**, and **Socket.IO** to deliver efficient data management and responsive, interactive communication. This setup ensures a seamless experience for both users and mentors.
