@@ -1,5 +1,5 @@
 # CodeSync - A Real-Time Code Mentoring Platform
-![Alt Text](public/img/code-icon.png)
+<img src="public/img/code-icon.png"  width="250"  />
 
 CodeSync is an interactive platform designed for code mentors to observe their students' coding work in real-time, with options for live updates, questions, and answers. It provides a seamless environment where mentors and students can collaborate on coding challenges, ask questions, and get feedback during coding sessions.
 
