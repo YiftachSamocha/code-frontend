@@ -17,12 +17,14 @@ export function RootCmp() {
     const location = useLocation()
     const [currQuestion, setCurrQuestion] = useState(null)
 
+    // This useEffect sets up listeners for socket events when the component mounts
     useEffect(() => {
-        socketService.on(SOCKET_EVENT_SET_BLOCK_TYPE, setBlock)
-        socketService.on(SOCKET_EVENT_SET_CURR_USER, setUser)
-        socketService.on(SOCKET_EVENT_SET_USERS_AMOUNT, setUsersAmount)
-        socketService.on(SOCKET_EVENT_BAD_CONNECTION, badConnection)
+        socketService.on(SOCKET_EVENT_SET_BLOCK_TYPE, setBlock)  // Listen for block type updates
+        socketService.on(SOCKET_EVENT_SET_CURR_USER, setUser)  // Listen for current user updates
+        socketService.on(SOCKET_EVENT_SET_USERS_AMOUNT, setUsersAmount)  // Listen for user amount updates
+        socketService.on(SOCKET_EVENT_BAD_CONNECTION, badConnection)  // Listen for bad connection event
         return () => {
+            // Cleanup listeners when the component unmounts
             socketService.off(SOCKET_EVENT_SET_BLOCK_TYPE, setBlock)
             socketService.off(SOCKET_EVENT_SET_CURR_USER, setUser)
             socketService.off(SOCKET_EVENT_SET_USERS_AMOUNT, setUsersAmount)
@@ -30,15 +32,15 @@ export function RootCmp() {
         }
     }, [])
 
-
+    // This useEffect triggers when the location (URL path) changes
     useEffect(() => {
-        let type = getCurrentTypeFromPath()
-        socketService.emit(SOCKET_EMIT_GET_BLOCK_TYPE, type)
-        socketService.emit(SOCKET_EMIT_GET_CURR_USER, null)
-        socketService.emit(SOCKET_EMIT_GET_USERS_AMOUNT, null)
+        let type = getCurrentTypeFromPath()  // Extract block type from the current path
+        socketService.emit(SOCKET_EMIT_GET_BLOCK_TYPE, type)  // Emit request for block type
+        socketService.emit(SOCKET_EMIT_GET_CURR_USER, null)  // Emit request for current user
+        socketService.emit(SOCKET_EMIT_GET_USERS_AMOUNT, null)  // Emit request for user amount
     }, [location])
 
-
+    // Function to handle block type setting, and navigate to lobby if the mentor left the block
     async function setBlock(type) {
         const block = await loadBlock(type)
         const inLobby = window.location.pathname === '/lobby' || window.location.pathname === '/'
@@ -47,23 +49,27 @@ export function RootCmp() {
         }
     }
 
+    // Function to set the current user in the Redux store
     function setUser(user) {
         dispatch({ type: SET_CURR_USER, currUser: user })
     }
 
+    // Function to set the number of users in the Redux store
     function setUsersAmount(amount) {
         dispatch({ type: SET_USERS_AMOUNT, amount })
     }
 
+    // Function to handle situation in which the user wrote in the search bar an un current block
     async function badConnection(type) {
         await setBlock(type)
         navigate('/lobby')
     }
 
+    // Function to extract the block type from the current URL path
     function getCurrentTypeFromPath() {
-        const pathParts = location.pathname.split('/');
-        if (pathParts[1] === 'code' && pathParts[2]) return pathParts[2];
-        return null; // Return null or default if no type is found
+        const pathParts = location.pathname.split('/')
+        if (pathParts[1] === 'code' && pathParts[2]) return pathParts[2]
+        return null
     }
 
     return (
@@ -85,5 +91,3 @@ export function RootCmp() {
         </div>
     )
 }
-
-

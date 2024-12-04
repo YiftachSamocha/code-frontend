@@ -30,14 +30,15 @@
                 transform: scale(1.05);
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             }
-            p{
+
+            p {
                 margin: 0;
                 cursor: pointer;
             }
         }
 
         .mentor-option {
-            background-color:  $secondary-color;
+            background-color: $secondary-color;
         }
 
         .student-option {
@@ -46,7 +47,7 @@
 
         .student-not-option {
             background-color: rgb(151, 149, 149);
-            pointer-events: none; 
+            pointer-events: none;
         }
     }
 }

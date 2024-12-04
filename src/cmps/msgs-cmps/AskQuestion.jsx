@@ -6,11 +6,13 @@ export function AskQuestion() {
     const [content, setContent] = useState('')
     const [sentMsg, setSentMsg] = useState('')
 
+    // Function to handle changes in the textarea (user typing the question)
     function handleChange({ target }) {
         const { value } = target
         setContent(value)
     }
 
+    // Function to submit the question and emit it via socket
     function submit() {
         socketService.emit(SOCKET_EMIT_SEND_QUESTION, { content, id: makeId() })
         setContent('')

@@ -1,10 +1,6 @@
-import { useParams } from "react-router";
 import { CodeBlock } from "../cmps/CodeBlock";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { SOCKET_EMIT_GET_BLOCK_TYPE, socketService } from "../services/socket.service";
 import { AskQuestion } from "../cmps/msgs-cmps/AskQuestion";
-
 
 export function CodeIndex() {
     const currUser = useSelector(state => state.currUser)

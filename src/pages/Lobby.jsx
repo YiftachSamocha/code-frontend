@@ -6,12 +6,14 @@ export function Lobby() {
     const currBlock = useSelector(state => state.currBlock)
     const navigate = useNavigate()
 
+    // Function to determine the class name based on user and block type
     function getClass(type) {
         if (!currUser || currUser.isMentor) return 'mentor-option'
         if (currBlock && currBlock.type === type) return 'student-option'
         return 'student-not-option'
     }
 
+    // Function to handle setting the block type and navigating to the appropriate page
     function onSetBlock(url) {
         if (!currUser.isMentor && currBlock.type !== url) return
         navigate(`/code/${url}`)

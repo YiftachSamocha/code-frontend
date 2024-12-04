@@ -54,7 +54,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
 
             &:first-of-type {
-                background-color: #e74c3c;
+                background-color: $clr-red;
                 color: white;
                 position: absolute;
                 top: 10px;
@@ -67,7 +67,7 @@
             }
 
             &:last-of-type {
-                background-color: #27ae60;
+                background-color: $clr-green;
                 color: white;
                 padding: 0.75em 1.5em;
 

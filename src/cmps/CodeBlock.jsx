@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { updateBlock } from "../store/block.actions"
+import { compareFunctions } from "../services/util.service"
 import { SOCKET_EMIT_EDIT_BLOCK, SOCKET_EVENT_BLOCK_EDITED, socketService } from "../services/socket.service"
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-java";
-import "ace-builds/src-noconflict/theme-tomorrow";
-import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/ext-language_tools";
+import AceEditor from "react-ace"
+import "ace-builds/src-noconflict/mode-java"
+import "ace-builds/src-noconflict/theme-tomorrow"
+import "ace-builds/src-noconflict/theme-monokai"
+import "ace-builds/src-noconflict/ext-language_tools"
 import Lottie from "lottie-react"
 import animationData from '../assets/img/smiley-animation.json'
-import { updateBlock } from "../store/block.actions";
-import { compareFunctions } from "../services/util.service";
-
-
 
 export function CodeBlock({ currBlock }) {
     const [content, setContent] = useState('')
@@ -20,6 +18,7 @@ export function CodeBlock({ currBlock }) {
     const [isSolved, setIsSolved] = useState(false)
     const [blockSize, setBlockSize] = useState({ width: '600px', height: '450px' })
 
+    // Handles the socket event when a block is edited, updating the content
     useEffect(() => {
         socketService.on(SOCKET_EVENT_BLOCK_EDITED, editContent)
         return () => {
@@ -27,14 +26,17 @@ export function CodeBlock({ currBlock }) {
         }
     }, [currBlock])
 
+    // Checks if the solution is correct every time the content changes
     useEffect(() => {
         checkSolution()
     }, [content])
 
+    // Sets the content when the current block is updated
     useEffect(() => {
         if (currBlock) setContent(currBlock.content)
     }, [currBlock])
 
+    // Adjusts the block size based on the window width in order to control the code block dimentions
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 720) {
@@ -54,33 +56,35 @@ export function CodeBlock({ currBlock }) {
 
         handleResize()
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize)
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResize)
         }
-    }, [blockSize])
+    }, [blockSize, window.innerWidth])
 
-
-
+    // Edits the content of the block, and saves it in the database
     async function editContent(editedContent) {
         setContent(editedContent)
         const blockToUpdate = { ...currBlock, content: editedContent }
         await updateBlock(blockToUpdate)
     }
 
+    // Handles changes in the editor (user typing) and sends the edited content through the socket, if the user is not a mentor
     async function handleChange(value) {
         if (currUser.isMentor) return
         await editContent(value)
         socketService.emit(SOCKET_EMIT_EDIT_BLOCK, value)
     }
 
+    // Resets the content of the block to its original state and emits it through the socket
     async function startOver() {
         await editContent(currBlock.starter)
         socketService.emit(SOCKET_EMIT_EDIT_BLOCK, currBlock.starter)
         setIsSolved(false)
     }
 
+    // Compares the content with the solution to check if it's correct using the 'compareFunctions' function
     function checkSolution() {
         var solutionCheck
         if (currBlock) {

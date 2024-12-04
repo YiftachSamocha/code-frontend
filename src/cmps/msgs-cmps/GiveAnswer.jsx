@@ -5,13 +5,20 @@ import { makeId } from "../../services/util.service"
 export function GiveAnswer({ question, close }) {
     const [content, setContent] = useState('')
 
+    // Function to handle changes in the textarea (user typing the answer)
     function handleChange({ target }) {
         const { value } = target
-        setContent(value)
+        setContent(value) 
     }
 
+    // Function to submit the answer and emit it via socket
     function submit() {
-        const answer = { content, askerId: question.userId, question: question.content, id: makeId() }
+        const answer = {
+            content,
+            askerId: question.userId,
+            question: question.content,
+            id: makeId()
+        }
         socketService.emit(SOCKET_EMIT_SEND_ANSWER, answer)
         close()
     }
