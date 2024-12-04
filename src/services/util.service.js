@@ -13,6 +13,7 @@ function extractAndNormalizeFunctions(code) {
                     .replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '') // Remove comments
                     .replace(/console\.log\(.*?\);?/g, '') // Remove console.log
                     .replace(/(let|const|var) [^;]+;/g, '') // Remove variable declarations
+                    .replace(/;\s*/g, '') // Remove semicolons
                     .replace(/\s+/g, ' ') // Normalize spaces
                     .trim()
                 functions.push(normalizedBody)
